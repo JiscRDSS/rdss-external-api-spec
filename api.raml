@@ -1,0 +1,44 @@
+#%RAML 1.0
+title: JISC Organisation API
+version: v1
+baseUri: https://www.jisc.ac.uk
+types:
+  Organisation:
+    type: object
+    properties:
+      id: string
+      name: string
+      type: string
+/organisations:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: Organisation[]
+            example: |
+              [
+                {
+                  "id": "AB1001",
+                  "name": "University of",
+                  "type": "University"
+                },
+                {
+                  "id": "AB1002",
+                  "name": "Institute of",
+                  "type": "Institute"
+                }
+              ]
+/orginisations/{id}:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: Organisation
+            example: |
+              {
+                "id": "AB1001",
+                "name": "University of",
+                "type": "University"
+              }
