@@ -6,9 +6,10 @@ types:
   Organisation:
     type: object
     properties:
-      id: string
       name: string
       type: string
+      displayId: number
+      billingId: number
 /organisations:
   get:
     responses:
@@ -19,17 +20,19 @@ types:
             example: |
               [
                 {
-                  "id": "AB1001",
-                  "name": "University of",
-                  "type": "University"
+                  "name": "University of Winchester",
+                  "type": "Type1",
+                  "displayId": 274,
+                  "billingId": 20059
                 },
                 {
-                  "id": "AB1002",
-                  "name": "Institute of",
-                  "type": "Institute"
+                  "name": "Imperial College of Science, Technology and Medicine",
+                  "type": "Type2",
+                  "displayId": 1539,
+                  "billingId": 1539
                 }
               ]
-/orginisations/{id}:
+/organisations/{name}:
   get:
     responses:
       200:
@@ -38,7 +41,30 @@ types:
             type: Organisation
             example: |
               {
-                "id": "AB1001",
-                "name": "University of",
-                "type": "University"
+                "name": "University of Winchester",
+                "type": "Type1",
+                "displayId": 274,
+                "billingId": 20059
               }
+/organisations/{type}:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            type: Organisation[]
+            example: |
+              [
+                {
+                  "name": "University of Winchester",
+                  "type": "Type1",
+                  "displayId": 274,
+                  "billingId": 20059
+                },
+                {
+                  "name": "Imperial College of Science, Technology and Medicine",
+                  "type": "Type2",
+                  "displayId": 1539,
+                  "billingId": 1539
+                }
+              ]
