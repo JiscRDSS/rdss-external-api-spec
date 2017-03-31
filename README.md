@@ -20,3 +20,5 @@ Add your Github token to the following URL
 
 https://htmlpreview.github.io/?https://raw.githubusercontent.com/JiscRDSS/rdss-external-api-spec/master/api.html?token=[your github token]
 ```
+
+When updating the RAML file, please re-generate the html by following the [raml2html](https://www.npmjs.com/package/raml2html) guide.
