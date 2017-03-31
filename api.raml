@@ -65,7 +65,7 @@ types:
             type: object
             example: |
               {
-                "title": "Organisation was not found."
+                "error": "Organisation was not found."
               }
 /organisation/type/{organisationType}:
   uriParameters:
@@ -92,11 +92,11 @@ types:
               ]
       400:
         description: |
-          "Organisation type is invalid. Look up for valid types."
+          "Organisation type is invalid."
         body:
             application/json:
               type: object
               example: |
                 {
-                  "title": "Organisation type is invalid."
+                  "error": "Organisation type is invalid. Look up for valid types."
                 }
