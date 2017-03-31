@@ -6,10 +6,24 @@ types:
   Organisation:
     type: object
     properties:
-      name: string
-      type: string
-      displayId: number
-      billingId: number
+      organisationUUID: string
+      organisationName: string
+      organisationType:
+        type: string
+        enum: ["charity",
+               "commercial",
+               "funder",
+               "furtherEducation",
+               "government",
+               "health",
+               "higherEducation",
+               "other",
+               "professionalBody",
+               "research",
+               "school",
+               "skills"]
+
+
 /organisations:
   get:
     responses:
@@ -20,16 +34,14 @@ types:
             example: |
               [
                 {
-                  "name": "University of Winchester",
-                  "type": "Type1",
-                  "displayId": 274,
-                  "billingId": 20059
+                  "organisationUUID": "274",
+                  "organisationName": "University of Winchester",
+                  "organisationType": "higherEducation"
                 },
                 {
-                  "name": "Imperial College of Science, Technology and Medicine",
-                  "type": "Type2",
-                  "displayId": 1539,
-                  "billingId": 1539
+                  "organisationUUID": "1539",
+                  "organisationName": "Imperial College of Science, Technology and Medicine",
+                  "organisationType": "charity"
                 }
               ]
 /organisations/{name}:
@@ -41,10 +53,9 @@ types:
             type: Organisation
             example: |
               {
-                "name": "University of Winchester",
-                "type": "Type1",
-                "displayId": 274,
-                "billingId": 20059
+                "organisationUUID": "274",
+                "organisationName": "University of Winchester",
+                "organisationType": "higherEducation"
               }
 /organisations/{type}:
   get:
@@ -56,15 +67,13 @@ types:
             example: |
               [
                 {
-                  "name": "St Mary's University, Twickenham",
-                  "type": "Type2",
-                  "displayId": 240,
-                  "billingId": 20059
+                  "organisationUUID": "240",
+                  "organisationName": "St Mary's University, Twickenham",
+                  "organisationType": "charity"
                 },
                 {
-                  "name": "Imperial College of Science, Technology and Medicine",
-                  "type": "Type2",
-                  "displayId": 1539,
-                  "billingId": 1539
+                  "organisationUUID": "1539",
+                  "organisationName": "Imperial College of Science, Technology and Medicine",
+                  "organisationType": "charity"
                 }
               ]
