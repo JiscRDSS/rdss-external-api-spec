@@ -3,28 +3,30 @@ title: JISC Organisation API
 version: v1
 baseUri: https://www.jisc.ac.uk
 types:
+  OrganisationType:
+    type: string
+    enum: ["charity",
+           "commercial",
+           "funder",
+           "furtherEducation",
+           "government",
+           "health",
+           "higherEducation",
+           "other",
+           "professionalBody",
+           "research",
+           "school",
+           "skills"]
   Organisation:
     type: object
     properties:
       organisationUUID: string
       organisationName: string
-      organisationType:
-        type: string
-        enum: ["charity",
-               "commercial",
-               "funder",
-               "furtherEducation",
-               "government",
-               "health",
-               "higherEducation",
-               "other",
-               "professionalBody",
-               "research",
-               "school",
-               "skills"]
+      organisationType: OrganisationType
 
 
-/organisations:
+
+/organisation:
   get:
     responses:
       200:
@@ -44,7 +46,7 @@ types:
                   "organisationType": "charity"
                 }
               ]
-/organisations/{name}:
+/organisation/{organisationUUID}:
   get:
     responses:
       200:
@@ -57,7 +59,18 @@ types:
                 "organisationName": "University of Winchester",
                 "organisationType": "higherEducation"
               }
-/organisations/{type}:
+      404:
+        body:
+          application/json:
+            type: object
+            example: |
+              {
+                "title": "Organisation was not found."
+              }
+/organisation/type/{organisationType}:
+  uriParameters:
+    organisationType:
+      type: OrganisationType
   get:
     responses:
       200:
@@ -77,3 +90,13 @@ types:
                   "organisationType": "charity"
                 }
               ]
+      400:
+        description: |
+          "Organisation type is invalid. Look up for valid types."
+        body:
+            application/json:
+              type: object
+              example: |
+                {
+                  "title": "Organisation type is invalid."
+                }
