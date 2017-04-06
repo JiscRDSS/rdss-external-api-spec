@@ -25,6 +25,9 @@ View with [github.io html preview](https://htmlpreview.github.io/)
 Add your Github token to the following URL
 
 https://htmlpreview.github.io/?https://raw.githubusercontent.com/JiscRDSS/rdss-external-api-spec/master/api.html?token=[your github token]
+
+Or open the HTML in Raw view and paste htmlpreview.github.io/? after https://
+
 ```
 
 When updating the RAML file, please re-generate the html by following the [raml2html](https://www.npmjs.com/package/raml2html) guide.
@@ -69,8 +72,8 @@ Cache-Control: max-age=0, private
 
 All timestamps are returned in ISO 8601 format:
 
-``` 
-YYYY-MM-DDTHH:MM:SSZ 
+```
+YYYY-MM-DDTHH:MM:SSZ
 ```
 
 ### Rate limiting
@@ -124,7 +127,7 @@ Access-Control-Expose-Headers: X-RateLimit-Limit, X-RateLimit-Remaining, X-RateL
 
 ```
 
-### Pagination 
+### Pagination
 
 Requests that return multiple items will be paginated to 30 items by default.
 
