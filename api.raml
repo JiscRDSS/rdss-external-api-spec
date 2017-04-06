@@ -40,10 +40,52 @@ traits:
               for more information.
             type: string
             example: private, max-age=31536000
+  rateLimited:
+    usage: Apply this trait to any GET method that will be subject to
+           Rate Limiting.
+    responses:
+      200:
+        headers:
+          X-RateLimit-Limit:
+            description: |
+              The maximum number of requests that the consumer
+              is permitted to make per hour.
+            type: integer
+          X-RateLimit-Remaining:
+            description: |
+              The number of requests remaining in the current rate limit window.
+            type: integer
+          X-RateLimit-Reset:
+            description: |
+              The time at which the current rate limit window
+              resets in UTC epoch seconds
+      403:
+        headers:
+          X-RateLimit-Limit:
+            description: |
+              The maximum number of requests that the consumer
+              is permitted to make per hour.
+            type: integer
+          X-RateLimit-Remaining:
+            description: |
+              The number of requests remaining in the current rate limit window.
+            type: integer
+          X-RateLimit-Reset:
+            description: |
+              The time at which the current rate limit window
+              resets in UTC epoch seconds
+        body:
+          application/json:
+            type: object
+            example: |
+              {
+                "message": "API rate limit exceeded for xxx.xxx.xxx.xxx.",
+                "documentation_url": "https://github.com/JiscRDSS/rdss-external-api-spec"
+              }
 
 /organisation:
   get:
-    is: [ cacheable ]
+    is: [ cacheable, rateLimited ]
     responses:
       200:
         body:
@@ -64,7 +106,7 @@ traits:
               ]
 /organisation/{organisationUUID}:
   get:
-    is: [ cacheable ]
+    is: [ cacheable, rateLimited ]
     responses:
       200:
         body:
@@ -89,7 +131,7 @@ traits:
     organisationType:
       type: OrganisationType
   get:
-    is: [ cacheable ]
+    is: [ cacheable, rateLimited ]
     responses:
       200:
         body:
