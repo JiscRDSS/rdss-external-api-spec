@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This API will follow the (current HTTP RFC)[https://tools.ietf.org/html/rfc7231].
+This API will follow the [current HTTP RFC](https://tools.ietf.org/html/rfc7231).
 
 
 ## RESTful external API specification
