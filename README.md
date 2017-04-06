@@ -100,7 +100,7 @@ Once you go over the rate limit you will receive an error response:
 HTTP/1.1 403 Forbidden
 Date: Tue, 20 Aug 2013 14:50:41 GMT
 Status: 403 Forbidden
-X-RateLimit-Limit: 60
+X-RateLimit-Limit: 100
 X-RateLimit-Remaining: 0
 X-RateLimit-Reset: 1377013266
 {
