@@ -23,11 +23,27 @@ types:
       organisationUUID: string
       organisationName: string
       organisationType: OrganisationType
-
-
+traits:
+  cacheable:
+    usage:
+      Apply this trait to any GET method that supports caching control.
+    responses:
+      200:
+        headers:
+          Cache-Control:
+            description: |
+              Activates caching and defines cache behavior through cache
+              response directives.
+              Usually defines public or private (cacheable by proxy or not)
+              and max-age for resource.
+              See http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
+              for more information.
+            type: string
+            example: private, max-age=31536000
 
 /organisation:
   get:
+    is: [ cacheable ]
     responses:
       200:
         body:
@@ -48,6 +64,7 @@ types:
               ]
 /organisation/{organisationUUID}:
   get:
+    is: [ cacheable ]
     responses:
       200:
         body:
@@ -72,6 +89,7 @@ types:
     organisationType:
       type: OrganisationType
   get:
+    is: [ cacheable ]
     responses:
       200:
         body:
