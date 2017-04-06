@@ -83,7 +83,7 @@ You can check the returned HTTP headers of any API request to see your current r
 HTTP/1.1 200 OK
 Date: Mon, 01 Jul 2013 17:27:06 GMT
 Status: 200 OK
-X-RateLimit-Limit: 60
+X-RateLimit-Limit: 100
 X-RateLimit-Remaining: 56
 X-RateLimit-Reset: 1372700873
 
