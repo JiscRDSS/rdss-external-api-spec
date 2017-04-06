@@ -1,11 +1,10 @@
 # rdss-external-api-spec
 
-## Introduction
+## RESTful external API specification
+
+### Introduction
 
 This API will follow the [current HTTP RFC](https://tools.ietf.org/html/rfc7231).
-
-
-## RESTful external API specification
 
 In order to see the interactive browser RAML viewer, please do one of the following:
 
