@@ -92,7 +92,7 @@ X-RateLimit-Reset: 1372700873
 |----------------|---------------------------------------------------------------------------------------------|
 | `X-RateLimit-Limit` | The maximum number of requests that the consumer is permitted to make per hour.        |
 | `X-RateLimit-Remaining` | The number of requests remaining in the current rate limit window.                 |
-| `X-RateLimit-Reset` | The time at which the current rate limit window resets in UTC (epoch seconds)    [https://en.wikipedia.org/wiki/Unix_time].                                                                     |
+| `X-RateLimit-Reset` | The time at which the current rate limit window resets in UTC [epoch seconds]    (https://en.wikipedia.org/wiki/Unix_time).                                                                     |
 
 Once you go over the rate limit you will receive an error response:
 
@@ -112,7 +112,7 @@ X-RateLimit-Reset: 1377013266
 
 ### Cross Origin Resource Sharing
 
-The API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin. You can read the (CORS W3C Recommendation)[https://www.w3.org/TR/cors/], or (this intro)[https://code.google.com/archive/p/html5security/wikis/CrossOriginRequestSecurity.wiki] from the HTML 5 Security Guide.
+The API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin. You can read the [CORS W3C Recommendation](https://www.w3.org/TR/cors/), or [this intro](https://code.google.com/archive/p/html5security/wikis/CrossOriginRequestSecurity.wiki) from the HTML 5 Security Guide.
 
 Here's a sample request sent from a browser hitting http://example.com:
 
