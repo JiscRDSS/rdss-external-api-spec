@@ -24,8 +24,32 @@ types:
       organisationName: string
       organisationType: OrganisationType
 traits:
+  accept:
+    usage: |
+      We encourage you to explicitly request the latest version via the
+      Accept header.
+    responses:
+      200:
+        headers:
+          Accept?:
+            description: |
+              By default, all requests receive the **v1** version. We encourage
+              you to explicitly request this version via the Accept header.
+            example: application/vnd.jisc.api.v1+json
+      406:
+        description: |
+          Not Acceptable - This status code will occur when the version
+          requested in the Accept header is non existent or deprecated.
+        body:
+          application/json:
+            type: object
+            example: |
+              {
+                "message": "This version is invalid or non longer available. Please verify the latest.",
+                "documentation_url": "https://github.com/JiscRDSS/rdss-external-api-spec"
+              }
   cacheable:
-    usage:
+    usage: |
       Apply this trait to any GET method that supports caching control.
     responses:
       200:
@@ -41,7 +65,8 @@ traits:
             type: string
             example: private, max-age=31536000
   cors:
-    usage: Apply this trait to any GET method that supports
+    usage: |
+      Apply this trait to any GET method that supports
       Cross Origin Resource Sharing (CORS). You can read the
       [CORS W3C Recommendation](https://www.w3.org/TR/cors/), or
       [this intro](https://code.google.com/archive/p/html5security/wikis/CrossOriginRequestSecurity.wiki)
@@ -56,8 +81,9 @@ traits:
             type: string
             enum: ["X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset"]
   rateLimited:
-    usage: Apply this trait to any GET method that will be subject to
-           Rate Limiting.
+    usage: |
+      Apply this trait to any GET method that will be subject to
+      Rate Limiting.
     responses:
       200:
         headers: &commonHeaders
@@ -90,7 +116,7 @@ traits:
 
 /organisation:
   get:
-    is: [ cacheable, cors, rateLimited ]
+    is: [ accept, cacheable, cors, rateLimited ]
     responses:
       200:
         body:
@@ -114,7 +140,7 @@ traits:
     organisationID:
       type: integer
   get:
-    is: [ cacheable, cors, rateLimited ]
+    is: [ accept, cacheable, cors, rateLimited ]
     responses:
       200:
         body:
@@ -141,7 +167,7 @@ traits:
     organisationType:
       type: OrganisationType
   get:
-    is: [ cacheable, cors, rateLimited ]
+    is: [ accept, cacheable, cors, rateLimited ]
     responses:
       200:
         body:
