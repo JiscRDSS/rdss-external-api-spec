@@ -20,7 +20,7 @@ types:
   Organisation:
     type: object
     properties:
-      organisationUUID: string
+      organisationID: integer
       organisationName: string
       organisationType: OrganisationType
 traits:
@@ -40,40 +40,45 @@ traits:
               for more information.
             type: string
             example: private, max-age=31536000
+  cors:
+    usage: Apply this trait to any GET method that supports
+      Cross Origin Resource Sharing (CORS). You can read the
+      [CORS W3C Recommendation](https://www.w3.org/TR/cors/), or
+      [this intro](https://code.google.com/archive/p/html5security/wikis/CrossOriginRequestSecurity.wiki)
+      from the HTML 5 Security Guide.
+    responses:
+      200:
+        headers:
+          Access-Control-Allow-Origin?:
+            type: string
+            enum: ["*"]
+          Access-Control-Expose-Headers?:
+            type: string
+            enum: ["X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset"]
   rateLimited:
     usage: Apply this trait to any GET method that will be subject to
            Rate Limiting.
     responses:
       200:
-        headers:
+        headers: &commonHeaders
           X-RateLimit-Limit:
             description: |
               The maximum number of requests that the consumer
               is permitted to make per hour.
             type: integer
+            default: 1000
+
           X-RateLimit-Remaining:
             description: |
               The number of requests remaining in the current rate limit window.
             type: integer
+
           X-RateLimit-Reset:
             description: |
               The time at which the current rate limit window
               resets in UTC epoch seconds
       403:
-        headers:
-          X-RateLimit-Limit:
-            description: |
-              The maximum number of requests that the consumer
-              is permitted to make per hour.
-            type: integer
-          X-RateLimit-Remaining:
-            description: |
-              The number of requests remaining in the current rate limit window.
-            type: integer
-          X-RateLimit-Reset:
-            description: |
-              The time at which the current rate limit window
-              resets in UTC epoch seconds
+        headers: *commonHeaders
         body:
           application/json:
             type: object
@@ -85,7 +90,7 @@ traits:
 
 /organisation:
   get:
-    is: [ cacheable, rateLimited ]
+    is: [ cacheable, cors, rateLimited ]
     responses:
       200:
         body:
@@ -94,19 +99,22 @@ traits:
             example: |
               [
                 {
-                  "organisationUUID": "274",
+                  "organisationID": 274,
                   "organisationName": "University of Winchester",
                   "organisationType": "higherEducation"
                 },
                 {
-                  "organisationUUID": "1539",
+                  "organisationID": 1539,
                   "organisationName": "Imperial College of Science, Technology and Medicine",
                   "organisationType": "charity"
                 }
               ]
-/organisation/{organisationUUID}:
+/organisation/{organisationID}:
+  uriParameters:
+    organisationID:
+      type: integer
   get:
-    is: [ cacheable, rateLimited ]
+    is: [ cacheable, cors, rateLimited ]
     responses:
       200:
         body:
@@ -114,24 +122,26 @@ traits:
             type: Organisation
             example: |
               {
-                "organisationUUID": "274",
+                "organisationID": 274,
                 "organisationName": "University of Winchester",
                 "organisationType": "higherEducation"
               }
-      404:
+      400:
+        description: |
+          "Organisation ID is invalid"
         body:
           application/json:
             type: object
             example: |
               {
-                "error": "Organisation was not found."
+                "error": "Organisation ID must be a number."
               }
 /organisation/type/{organisationType}:
   uriParameters:
     organisationType:
       type: OrganisationType
   get:
-    is: [ cacheable, rateLimited ]
+    is: [ cacheable, cors, rateLimited ]
     responses:
       200:
         body:
@@ -140,12 +150,12 @@ traits:
             example: |
               [
                 {
-                  "organisationUUID": "240",
+                  "organisationID": 240,
                   "organisationName": "St Mary's University, Twickenham",
                   "organisationType": "charity"
                 },
                 {
-                  "organisationUUID": "1539",
+                  "organisationID": 1539,
                   "organisationName": "Imperial College of Science, Technology and Medicine",
                   "organisationType": "charity"
                 }
