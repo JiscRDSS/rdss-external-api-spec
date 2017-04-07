@@ -75,6 +75,15 @@ All timestamps are returned in ISO 8601 format:
 YYYY-MM-DDTHH:MM:SSZ
 ```
 
+### Topology
+
+The API functions will be stored in AWS Lambda and Web clients will call them via the Amazon API Gateway.
+
+ <p align="center">
+  <img src="topology/apigatewaysample1.png"/>
+ </p>
+
+
 ### Rate limiting
 
 The rate limit allows you to make up to 100 requests per hour.
