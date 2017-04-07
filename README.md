@@ -4,7 +4,7 @@
 
 ### Introduction
 
-This API will follow the [current HTTP RFC](https://tools.ietf.org/html/rfc7231).
+This repository documents the RDSS external API for organisation querying. It describes the API requirements and follows the [current HTTP RFC](https://tools.ietf.org/html/rfc7231) and Level 2 of [Richardson Maturity Model](https://martinfowler.com/articles/richardsonMaturityModel.html).
 
 In order to see the interactive browser RAML viewer, please do one of the following:
 
