@@ -84,6 +84,7 @@ YYYY-MM-DDTHH:MM:SSZ
 
 Please refer to the [api.raml](api.raml) for specification and examples on:
 
+- Versioning
 - Caching
 - Rate Limiting
 - Cross Origin Resource Sharing
