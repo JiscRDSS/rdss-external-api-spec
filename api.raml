@@ -1,7 +1,7 @@
 #%RAML 1.0
 title: JISC Organisation API
 version: v1
-baseUri: https://www.jisc.ac.uk
+baseUri: api.researchdata.alpha.jisc.ac.uk
 types:
   OrganisationType:
     type: string
@@ -23,6 +23,17 @@ types:
       organisationID: integer
       organisationName: string
       organisationType: OrganisationType
+  Value:
+    type: object
+    properties:
+      valueId: integer
+      valueName: string
+  Vocabulary:
+    type: object
+    properties:
+      vocabularyId: integer
+      vocabularyName: string
+      vocabularyValues?: Value
 traits:
   accept:
     usage: |
@@ -114,7 +125,7 @@ traits:
                 "documentation_url": "https://github.com/JiscRDSS/rdss-external-api-spec"
               }
 
-/organisation:
+/organisations:
   get:
     is: [ accept, cacheable, cors, rateLimited ]
     responses:
@@ -135,7 +146,7 @@ traits:
                   "organisationType": "charity"
                 }
               ]
-/organisation/{organisationID}:
+/organisations/{organisationID}:
   uriParameters:
     organisationID:
       type: integer
@@ -162,7 +173,7 @@ traits:
               {
                 "error": "Organisation ID must be a number."
               }
-/organisation/type/{organisationType}:
+/organisations/type/{organisationType}:
   uriParameters:
     organisationType:
       type: OrganisationType
@@ -195,4 +206,52 @@ traits:
               example: |
                 {
                   "error": "Organisation type is invalid. Look up for valid types."
+                }
+/vocabularies:
+  get:
+     is: [ accept, cacheable, cors, rateLimited ]
+     responses:
+       200:
+         body:
+           application/json:
+             type: Vocabulary[]
+             example: |
+               [
+                 {
+                   "vocabularyId": 1,
+                   "vocabularyName": "accessType"
+                 },
+                 {
+                   "vocabularyId": 2,
+                   "vocabularyName": "organisationIdentifierType"
+                 },
+                 {
+                   "vocabularyId": 3,
+                   "vocabularyName": "APC"
+                 }
+               ]
+  post:
+      description: |
+           Enters a new vocabulary name.
+           The API will respond with a generated vocabularyId.
+      queryParameters:
+        accessToken:
+          description: |
+            "The access token provided by the authentication application"
+      is: [ accept ]
+      body:
+        application/json:
+          type: object
+          example: |
+            {
+              "vocabularyName": "newVocabularyName"
+            }
+      responses:
+        201:
+          body:
+            application/json:
+              example: |
+                {
+                  "message": "New vocabulary has been created",
+                  "vocabularyUri": 11
                 }
