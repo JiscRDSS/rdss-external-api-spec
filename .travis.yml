@@ -1,0 +1,8 @@
+language: node_js
+before_script:
+  - npm install -g raml2html raml2html-markdown-theme
+script: bash ./deploy.sh
+env:
+  global:
+  - ENCRYPTION_LABEL: "0a090aba919a"
+  - COMMIT_AUTHOR_EMAIL: "deploy@travis-ci.org"
