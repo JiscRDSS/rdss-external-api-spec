@@ -6,30 +6,8 @@
 
 This repository documents the RDSS external API for organisation querying. It describes the API requirements and follows the [current HTTP RFC](https://tools.ietf.org/html/rfc7231) and Level 2 of [Richardson Maturity Model](https://martinfowler.com/articles/richardsonMaturityModel.html).
 
-In order to see the interactive browser RAML viewer, please do one of the following:
+In order to see the interactive browser RAML viewer, please [click here](https://htmlpreview.github.io/?https://raw.githubusercontent.com/JiscRDSS/rdss-external-api-spec/gh-pages/index.html):
 
-View locally:
-
-```
-clone the repository
-
-git clone git@github.com:JiscRDSS/rdss-external-api-spec.git
-
-then open api.html in the browser
-```
-
-View with [github.io html preview](https://htmlpreview.github.io/)
-
-```
-Add your Github token to the following URL
-
-https://htmlpreview.github.io/?https://raw.githubusercontent.com/JiscRDSS/rdss-external-api-spec/master/api.html?token=[your github token]
-
-Or open the HTML in Raw view and paste htmlpreview.github.io/? after https://
-
-```
-
-When updating the RAML file, please re-generate the html by following the [raml2html](https://www.npmjs.com/package/raml2html) guide.
 
 ### Audience
 
