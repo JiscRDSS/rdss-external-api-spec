@@ -25,10 +25,9 @@ git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 cd ..
 
 # Clean out existing contents
-rm -rf out/**/* || exit 0
+rm -rf out/* || exit 0
 
 # Run our compile script
-mkdir -p out/
 raml2html api.raml > out/index.html
 
 # Now let's go have some fun with the cloned repo
@@ -38,7 +37,7 @@ git config user.email "deploy@travis-ci.org"
 
 # Commit the "changes", i.e. the new version.
 # The delta will show diffs between new and old versions.
-git add index.html
+git add --all
 git commit -m "Deploy to GitHub Pages: ${SHA}"
 
 # Get the deploy key by using Travis's stored variables to decrypt deploy_key.enc
