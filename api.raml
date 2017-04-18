@@ -33,7 +33,7 @@ types:
     properties:
       vocabularyId: integer
       vocabularyName: string
-      vocabularyValues?: Value
+      vocabularyValues: Value[]
 traits:
   accept:
     usage: |
@@ -219,21 +219,42 @@ traits:
                [
                  {
                    "vocabularyId": 1,
-                   "vocabularyName": "accessType"
+                   "vocabularyName": "accessType",
+                   "vocabularyValues": [
+                     {
+                       "valueId": 1,
+                       "valueName": "open"
+                     },
+                     {
+                       "valueId": 2,
+                       "valueName": "restricted"
+                     }
+                   ]
                  },
                  {
                    "vocabularyId": 2,
-                   "vocabularyName": "organisationIdentifierType"
+                   "vocabularyName": "organisationIdentifierType",
+                   "vocabularyValues": [
+                     {
+                       "valueId": 1,
+                       "valueName": "controlled"
+                     },
+                     {
+                       "valueId": 2,
+                       "valueName": "closed"
+                     }
+                   ]
                  },
                  {
                    "vocabularyId": 3,
-                   "vocabularyName": "APC"
+                   "vocabularyName": "APC",
+                   "vocabularyValues": []
                  }
                ]
   post:
       description: |
-           Enters a new vocabulary name.
-           The API will respond with a generated vocabularyId.
+           Takes a list of vocabularies and creates them or updates
+           them if already existing.
       queryParameters:
         accessToken:
           description: |
@@ -241,17 +262,72 @@ traits:
       is: [ accept ]
       body:
         application/json:
-          type: object
+          type: Vocabulary[]
           example: |
-            {
-              "vocabularyName": "newVocabularyName"
-            }
+            [
+              {
+                "vocabularyId": 1,
+                "vocabularyName": "accessType",
+                "vocabularyValues": [
+                  {
+                    "valueId": 1,
+                    "valueName": "open"
+                  },
+                  {
+                    "valueId": 2,
+                    "valueName": "restricted"
+                  }
+                ]
+              },
+              {
+                "vocabularyId": 2,
+                "vocabularyName": "organisationIdentifierType",
+                "vocabularyValues": [
+                  {
+                    "valueId": 1,
+                    "valueName": "controlled"
+                  },
+                  {
+                    "valueId": 2,
+                    "valueName": "closed"
+                  }
+                ]
+              },
+              {
+                "vocabularyId": 3,
+                "vocabularyName": "APC",
+                "vocabularyValues": []
+              }
+            ]
       responses:
-        201:
-          body:
-            application/json:
-              example: |
-                {
-                  "message": "New vocabulary has been created",
-                  "vocabularyUri": 11
-                }
+        200:
+          description: |
+            Success. All resources have been added/updated accordingly.
+        413:
+          description: |
+            Request body is too large. Use this when the list of vocabularies
+            sent in a request is too big. WARNING: that might create a loophole
+            depending on implementation.
+/vocabularies/{vocabularyId}:
+  get:
+     is: [ accept, cacheable, cors, rateLimited ]
+     responses:
+       200:
+         body:
+           application/json:
+             type: Vocabulary
+             example: |
+                 {
+                   "vocabularyId": 1,
+                   "vocabularyName": "accessType",
+                   "vocabularyValues": [
+                    {
+                      "valueId": 1,
+                      "valueName": "open"
+                    },
+                    {
+                      "valueId": 2,
+                      "valueName": "restricted"
+                    }
+                   ]
+                 }
