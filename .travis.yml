@@ -7,4 +7,4 @@ script: bash ./deploy.sh
 env:
   global:
   - ENCRYPTION_LABEL: "f5ec8fa293c6"
-  - COMMIT_AUTHOR_EMAIL: "deploy@travis-ci.org"
+
