@@ -34,6 +34,19 @@ types:
       vocabularyId: integer
       vocabularyName: string
       vocabularyValues: Value[]
+  Error:
+    type: object
+    properties:
+      code:
+        type: string
+        enum: ["BadArgument",
+              "VersionNotAccepted",
+              "RateLimitExceeded"]
+      message: string
+  ErrorResponse:
+    type: object
+    properties:
+      error: Error
 traits:
   accept:
     usage: |
@@ -53,11 +66,13 @@ traits:
           requested in the Accept header is non existent or deprecated.
         body:
           application/json:
-            type: object
+            type: ErrorResponse
             example: |
               {
-                "message": "This version is invalid or non longer available. Please verify the latest.",
-                "documentation_url": "https://github.com/JiscRDSS/rdss-external-api-spec"
+                "error": {
+                    "code": "VersionNotAccepted",
+                    "message": "This version is invalid or non longer available. Please verify the latest. Documentation url: https://github.com/JiscRDSS/rdss-external-api-spec"
+                  }
               }
   cacheable:
     usage: |
@@ -118,11 +133,13 @@ traits:
         headers: *commonHeaders
         body:
           application/json:
-            type: object
+            type: ErrorResponse
             example: |
               {
-                "message": "API rate limit exceeded for xxx.xxx.xxx.xxx.",
-                "documentation_url": "https://github.com/JiscRDSS/rdss-external-api-spec"
+                "error": {
+                    "code": "RateLimitExceeded",
+                    "message": "API rate limit exceeded for xxx.xxx.xxx.xxx. Please check documentation https://github.com/JiscRDSS/rdss-external-api-spec"
+                  }
               }
 
 /organisations:
@@ -168,10 +185,13 @@ traits:
           "Organisation ID is invalid"
         body:
           application/json:
-            type: object
+            type: ErrorResponse
             example: |
               {
-                "error": "Organisation ID must be a number."
+                "error": {
+                  "code": "BadArgument",
+                  "message": "Organisation ID must be a number."
+                }
               }
 /organisations/type/{organisationType}:
   uriParameters:
@@ -202,10 +222,13 @@ traits:
           "Organisation type is invalid."
         body:
             application/json:
-              type: object
+              type: ErrorResponse
               example: |
                 {
-                  "error": "Organisation type is invalid. Look up for valid types."
+                  "error": {
+                    "code": "BadArgument",
+                    "message": "Organisation type is invalid. Look up for valid types."
+                  }
                 }
 /vocabularies:
   get:
