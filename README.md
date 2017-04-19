@@ -1,4 +1,4 @@
-# rdss-external-api-spec
+## rdss-external-api-spec
 
 ## RESTful external API specification
 
