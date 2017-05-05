@@ -30,10 +30,10 @@ The keywords **MAY**, **MUST**, **MUST NOT**, **NOT RECOMMENDED**, **RECOMMENDED
 
 ### Topology
 
-The API functions will be stored in AWS Lambda and Web clients will call them via the Amazon API Gateway.
+The API functions will be stored in AWS Lambda and Web clients will call them via a CloudFront distribution URL. Web Application Firewall rules are executed against the incoming requests at CloudFront Edge Locations, and filtered requests are passed to the AWS API Gateway that maps requests to Lambda functions. The results from the functions will be cached according to emitted Cache-Control headers in CloudFront.
 
  <p align="center">
-  <img src="topology/apigatewaysample1.png"/>
+  <img src="topology/WAF-CDN-APIGateway-Lambda.png"/>
  </p>
 
 ### Schema
