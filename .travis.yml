@@ -8,9 +8,9 @@ before_script:
 jobs:
   include:
     - stage: test
-      script: node ./index.js ../api.raml && cd ..
+      script: cd ~/build/JiscRDSS/rdss-external-api-spec/rdss-raml-validation-test && node index.js ../api.raml
     - stage: deploy
-      script: bash ./deploy.sh
+      script: cd ~/build/JiscRDSS/rdss-external-api-spec && bash ./deploy.sh
 env:
   global:
   - ENCRYPTION_LABEL: "f5ec8fa293c6"
