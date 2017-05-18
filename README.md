@@ -1,5 +1,7 @@
 # RESTful external API specification
 
+[![Build Status](https://travis-ci.org/JiscRDSS/rdss-external-api-spec.svg?branch=master)](https://travis-ci.org/JiscRDSS/rdss-external-api-spec)
+
 ## Introduction
 
 This repository documents the RDSS external API for organisation querying. It describes the API requirements and follows the [current HTTP RFC](https://tools.ietf.org/html/rfc7231) and Level 2 of [Richardson Maturity Model](https://martinfowler.com/articles/richardsonMaturityModel.html).
