@@ -3,7 +3,10 @@ node_js:
   - "node"
 before_script:
   - npm install -g raml2html raml2html-markdown-theme
-script: bash ./deploy.sh
+  - git clone https://github.com/JiscRDSS/rdss-raml-validation-test
+  - cd rdss-raml-validation-test && npm install
+script:
+  - cd ~/build/JiscRDSS/rdss-external-api-spec/rdss-raml-validation-test && node index.js ../api.raml && cd .. && bash ./deploy.sh
 env:
   global:
   - ENCRYPTION_LABEL: "f5ec8fa293c6"
