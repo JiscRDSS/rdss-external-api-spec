@@ -47,12 +47,14 @@ The keywords **MAY**, **MUST**, **MUST NOT**, **NOT RECOMMENDED**, **RECOMMENDED
 The API functions will be stored in AWS Lambda and Web clients will call them via a CloudFront distribution URL. Web Application Firewall rules are executed against the incoming requests at CloudFront Edge Locations, and filtered requests are passed to the AWS API Gateway that maps requests to Lambda functions. The results from the functions will be cached according to emitted Cache-Control headers in CloudFront.
 
  <p align="center">
-  <img src="topology/WAF-CDN-APIGateway-Lambda.png"/>
+  <img src="topology/WAF-CDN-APIGateway-Cognito-Lambda.png"/>
  </p>
+
+AWS Cognito and Security Token Service (AWS STS) simplify the generation of temporary credentials for client apps or services. Cognito User pools will be created to control who or what can access an API Gateway. User pool serves as an identity provider and maintains a user directory. User pools provide user registration, sign-in and access tokens for signed-in users. AWS STS will use access tokens to generate and validate temporary credentials that client apps will use to access an API Gateway.
 
 # Schema
 
-All API access is over HTTPS, and accessed from the https://www.jisc.ac.uk. All data is sent and received as JSON
+All API access is over HTTPS, and accessed from the https://www.jisc.ac.uk. All data is sent and received as JSON. Client apps use temporary security credentials to sign API requests that is sent in the `Authorisation` HTTP Header. Security token required for validating temporary security credentials is sent as `x-amz-security-token` HTTP Header.
 
 ```
 curl -i https://www.jisc.ac.uk/organisation
