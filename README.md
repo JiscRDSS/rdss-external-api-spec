@@ -83,9 +83,14 @@ Please refer to the [api.raml](api.raml) for specification and examples on:
 - Rate Limiting
 - Cross Origin Resource Sharing
 
+# Naming Scheme
+
+Endpoints**MUST**always use plural names to identify them. In keeping with the[Best Practices for Pragmatic RESTful API.](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api#restful)This will avoid grammar conflicts with determining the plurals of words like person/people and maintain consistency in the endpoint. As an example the endpoint `/tickets/1` would provide a single ticket with id 1 while `/tickets` would provide a list of tickets. 
+
 # References
 
 - [REST in Practice](https://www.safaribooksonline.com/library/view/rest-in-practice/9781449383312/)
 - [Microsoft API guidelines](https://github.com/Microsoft/api-guidelines/blob/master/Guidelines.md)
 - [Restful API design](http://restful-api-design.readthedocs.io/en/latest/intro.html)
 - [Richardson maturity model](https://martinfowler.com/articles/richardsonMaturityModel.html)
+- [Best Practices For Pragmatic RESTful API](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api#restful)
