@@ -85,7 +85,9 @@ Please refer to the [api.raml](api.raml) for specification and examples on:
 
 # Naming Scheme
 
-Endpoints**MUST**always use plural names to identify them. In keeping with the[Best Practices for Pragmatic RESTful API.](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api#restful)This will avoid grammar conflicts with determining the plurals of words like person/people and maintain consistency in the endpoint. As an example the endpoint `/tickets/1` would provide a single ticket with id 1 while `/tickets` would provide a list of tickets. 
+Endpoints**MUST**always use plural names to identify them regardless of action, in keeping with the[Best Practices for Pragmatic RESTful API.](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api#restful)This will avoid grammar conflicts with determining the plurals of words like person/people and maintain consistency in the endpoint. 
+
+As an example the endpoint `/tickets/1` would provide a single ticket with id=1 while `/tickets` would provide a list of tickets. 
 
 # References
 
